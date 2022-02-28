@@ -7,6 +7,7 @@ import * as serviceWorker from './serviceWorker';
 import { FirebaseContext } from './contexts';
 import Firebase from './Firebase';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import './styles.css';
 
 const firebase = new Firebase();
 
@@ -19,7 +20,7 @@ ReactDOM.render(
       </FirebaseContext.Provider>
     </ChakraProvider>
   </StrictMode>,
-  document.getElementById('root'),
+  document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change
