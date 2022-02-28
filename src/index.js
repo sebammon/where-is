@@ -1,16 +1,25 @@
-import { ColorModeScript } from '@chakra-ui/react';
+import { ChakraProvider, ColorModeScript, theme } from '@chakra-ui/react';
 import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker';
+import { FirebaseContext } from './contexts';
+import Firebase from './Firebase';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
+
+const firebase = new Firebase();
 
 ReactDOM.render(
   <StrictMode>
     <ColorModeScript />
-    <App />
+    <ChakraProvider theme={theme}>
+      <FirebaseContext.Provider value={firebase}>
+        <App />
+      </FirebaseContext.Provider>
+    </ChakraProvider>
   </StrictMode>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
 
 // If you want your app to work offline and load faster, you can change
