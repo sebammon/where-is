@@ -1,7 +1,19 @@
 import { initializeApp } from 'firebase/app';
 import { getStorage, ref, uploadBytes } from 'firebase/storage';
-import { addDoc, collection, getFirestore, onSnapshot, orderBy, query } from 'firebase/firestore';
-import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth';
+import {
+  addDoc,
+  collection,
+  getFirestore,
+  onSnapshot,
+  orderBy,
+  query,
+} from 'firebase/firestore';
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
+} from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -21,7 +33,11 @@ class Firebase {
   }
 
   async signIn(email, password) {
-    const userCredentials = await signInWithEmailAndPassword(this.auth, email, password);
+    const userCredentials = await signInWithEmailAndPassword(
+      this.auth,
+      email,
+      password
+    );
 
     return userCredentials.user;
   }
@@ -31,7 +47,7 @@ class Firebase {
   }
 
   onAuthChange(cb) {
-    return onAuthStateChanged(this.auth, user => {
+    return onAuthStateChanged(this.auth, (user) => {
       cb && cb(user);
     });
   }
@@ -54,21 +70,31 @@ class Firebase {
   addPost({ location = null, caption, images }) {
     const postCollection = collection(this.db, 'posts');
 
-    return addDoc(postCollection, { location, caption, images, created: new Date() });
+    return addDoc(postCollection, {
+      location,
+      caption,
+      images,
+      created: new Date(),
+    });
   }
 
   subscribeToPosts(cb) {
     const postCollection = collection(this.db, 'posts');
     const q = query(postCollection, orderBy('created', 'desc'));
-    return onSnapshot(q, (querySnapshot => {
-      const docs = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    return onSnapshot(q, (querySnapshot) => {
+      const docs = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
 
       cb && cb(docs);
-    }));
+    });
   }
 
   getImageUrl(imagePath) {
-    return `https://firebasestorage.googleapis.com/v0/b/${this.app.options.storageBucket}/o/${encodeURIComponent(imagePath)}?alt=media`;
+    return `https://firebasestorage.googleapis.com/v0/b/${
+      this.app.options.storageBucket
+    }/o/${encodeURIComponent(imagePath)}?alt=media`;
   }
 }
 
