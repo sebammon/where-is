@@ -98,7 +98,7 @@ function App() {
       window.alert(`An error occurred while creating the post: ${e.message}`);
     }
     setIsLoading(false);
-    // setShowCreate(false);
+    setShowCreate(false);
   };
 
   return (
