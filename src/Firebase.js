@@ -7,6 +7,7 @@ import {
   onSnapshot,
   orderBy,
   query,
+  enableIndexedDbPersistence,
 } from 'firebase/firestore';
 import {
   getAuth,
@@ -30,6 +31,8 @@ class Firebase {
     this.storage = getStorage(this.app);
     this.db = getFirestore();
     this.auth = getAuth();
+
+    enableIndexedDbPersistence(this.db);
   }
 
   async signIn(email, password) {
