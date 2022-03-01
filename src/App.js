@@ -104,7 +104,16 @@ function App() {
       >
         <Box maxW={'8xl'} px={2} mx={'auto'}>
           <HStack>
-            <Text className={'title'} fontSize={'2xl'} flexGrow={1}>
+            <Text
+              cursor={'pointer'}
+              className={'title'}
+              fontSize={'2xl'}
+              flexGrow={1}
+              onClick={() => {
+                setShowLogin(false);
+                setShowCreate(false);
+              }}
+            >
               WHERE IS...?
             </Text>
             <Box>
