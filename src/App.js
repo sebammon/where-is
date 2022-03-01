@@ -30,13 +30,7 @@ const resizeImages = (image) =>
     new Compressor(image, {
       quality: 0.6,
       success(file) {
-        const parts = file.name.split('.');
-
-        resolve(
-          new File([file], `${crypto.randomUUID()}.${parts.at(-1)}`, {
-            type: file.type,
-          })
-        );
+        resolve(file);
       },
       error(error) {
         reject(error);
