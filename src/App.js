@@ -18,6 +18,25 @@ import CreatePost from './components/CreatePost';
 import { FirebaseContext } from './contexts';
 import Posts from './components/Posts';
 import Login from './components/Login';
+import Compressor from 'compressorjs';
+
+ const resizeImages = (image) =>
+   new Promise((resolve, reject) => {
+     if (!image) {
+       resolve();
+       return;
+     }
+
+     new Compressor(image, {
+       quality: 0.6,
+       success(file) {
+         resolve(file);
+       },
+       error(error) {
+         reject(error);
+       },
+     });
+   });
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -65,7 +84,8 @@ function App() {
   const handleCreatePost = async ({ images, location, caption }) => {
     setIsLoading(true);
     try {
-      const imagePaths = await firebase.uploadFiles([...images]);
+      const resized = await Promise.all([...images].map(resizeImages))
+      const imagePaths = await firebase.uploadFiles(resized);
       await firebase.addPost({ location, caption, images: imagePaths });
     } catch (e) {
       window.alert(`An error occurred while creating the post: ${e.message}`);
