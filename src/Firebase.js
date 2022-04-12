@@ -58,16 +58,16 @@ class Firebase {
   async uploadFiles(files) {
     const date = Date.now();
 
-    const fullPaths = [];
+    const snapshots = [];
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       const storageRef = ref(this.storage, `images/${date}/${file.name}`);
-      const snapshot = await uploadBytes(storageRef, file);
+      const snapshotPromise = uploadBytes(storageRef, file);
 
-      fullPaths.push(snapshot.metadata.fullPath);
+      snapshots.push(snapshotPromise);
     }
 
-    return fullPaths;
+    return (await Promise.all(snapshots)).map((snapshot) => snapshot.metadata.fullPath)
   }
 
   addPost({ location = null, caption, images }) {
