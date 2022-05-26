@@ -2,7 +2,10 @@ import React from 'react';
 import { Box, Image, Text, VStack, Skeleton } from '@chakra-ui/react';
 import moment from 'moment';
 import { Carousel } from 'react-responsive-carousel';
-import { LazyLoadComponent, trackWindowScroll } from 'react-lazy-load-image-component'
+import {
+  LazyLoadComponent,
+  trackWindowScroll,
+} from 'react-lazy-load-image-component';
 
 const placeholderImage = <Skeleton w={'100%'} h={'350px'} />;
 
@@ -23,14 +26,21 @@ function PostBase({ location, caption, created, images, scrollPosition }) {
           swipeScrollTolerance={30}
         >
           {images.map((image, idx) => (
-            <LazyLoadComponent key={idx} placeholder={placeholderImage} scrollPosition={scrollPosition}>
+            <LazyLoadComponent
+              key={idx}
+              placeholder={placeholderImage}
+              scrollPosition={scrollPosition}
+            >
               <Image src={image} />
             </LazyLoadComponent>
           ))}
         </Carousel>
       ) : (
-        <LazyLoadComponent placeholder={placeholderImage} scrollPosition={scrollPosition}>
-              <Image src={images[0]} />
+        <LazyLoadComponent
+          placeholder={placeholderImage}
+          scrollPosition={scrollPosition}
+        >
+          <Image src={images[0]} />
         </LazyLoadComponent>
       )}
       <Box p={6}>

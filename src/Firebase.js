@@ -67,7 +67,9 @@ class Firebase {
       snapshots.push(snapshotPromise);
     }
 
-    return (await Promise.all(snapshots)).map((snapshot) => snapshot.metadata.fullPath)
+    return (await Promise.all(snapshots)).map(
+      (snapshot) => snapshot.metadata.fullPath
+    );
   }
 
   addPost({ location = null, caption, images }) {

@@ -4,6 +4,8 @@
 .idea/
 .env
 
+key.txt
+
 # dependencies
 /node_modules
 /.pnp
