@@ -1,9 +1,12 @@
 import React from 'react';
-import { Box, Image, Text, VStack } from '@chakra-ui/react';
+import { Box, Image, Text, VStack, Skeleton } from '@chakra-ui/react';
 import moment from 'moment';
 import { Carousel } from 'react-responsive-carousel';
+import { LazyLoadComponent, trackWindowScroll } from 'react-lazy-load-image-component'
 
-function Post({ location, caption, created, images }) {
+const placeholderImage = <Skeleton w={'100%'} h={'350px'} />;
+
+function PostBase({ location, caption, created, images, scrollPosition }) {
   return (
     <Box
       maxW={'xl'}
@@ -20,11 +23,15 @@ function Post({ location, caption, created, images }) {
           swipeScrollTolerance={30}
         >
           {images.map((image, idx) => (
-            <Image key={idx} src={image} loading={'lazy'} />
+            <LazyLoadComponent key={idx} placeholder={placeholderImage} scrollPosition={scrollPosition}>
+              <Image src={image} />
+            </LazyLoadComponent>
           ))}
         </Carousel>
       ) : (
-        <Image src={images[0]} loading={'lazy'} />
+        <LazyLoadComponent placeholder={placeholderImage} scrollPosition={scrollPosition}>
+              <Image src={images[0]} />
+        </LazyLoadComponent>
       )}
       <Box p={6}>
         <Box
@@ -41,6 +48,8 @@ function Post({ location, caption, created, images }) {
     </Box>
   );
 }
+
+const Post = trackWindowScroll(PostBase);
 
 function Posts({ posts }) {
   if (posts.length === 0) {
