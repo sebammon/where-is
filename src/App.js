@@ -28,7 +28,7 @@ import Compressor from 'compressorjs';
      }
 
      new Compressor(image, {
-       quality: 0.6,
+       quality: 0.4,
        success(file) {
          resolve(file);
        },
