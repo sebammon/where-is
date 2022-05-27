@@ -39,7 +39,7 @@ const resizeImages = (image) =>
   });
 
 function App() {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState(null);
   const [showCreate, setShowCreate] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
