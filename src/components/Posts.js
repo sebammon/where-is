@@ -62,6 +62,14 @@ function PostBase({ location, caption, created, images, scrollPosition }) {
 const Post = trackWindowScroll(PostBase);
 
 function Posts({ posts }) {
+  if (posts === null) {
+    return (
+      <Text fontSize={'2xl'} textAlign={'center'}>
+        Loading...
+      </Text>
+    );
+  }
+
   if (posts.length === 0) {
     return (
       <Text fontSize={'2xl'} textAlign={'center'}>
