@@ -3,6 +3,7 @@
 .firebase/
 .idea/
 .env
+.firebaserc
 
 # dependencies
 /node_modules
