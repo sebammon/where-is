@@ -5,6 +5,8 @@
 .env
 .firebaserc
 
+key.txt
+
 # dependencies
 /node_modules
 /.pnp

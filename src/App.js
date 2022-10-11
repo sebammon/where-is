@@ -28,7 +28,7 @@ const resizeImages = (image) =>
     }
 
     new Compressor(image, {
-      quality: 0.6,
+      quality: 0.4,
       success(file) {
         resolve(file);
       },
@@ -39,7 +39,7 @@ const resizeImages = (image) =>
   });
 
 function App() {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState(null);
   const [showCreate, setShowCreate] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -85,7 +85,6 @@ function App() {
     setIsLoading(true);
     try {
       const resized = await Promise.all([...images].map(resizeImages));
-
       const imagePaths = await firebase.uploadFiles(resized);
       await firebase.addPost({ location, caption, images: imagePaths });
     } catch (e) {
